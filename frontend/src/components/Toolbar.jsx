@@ -9,7 +9,6 @@ import {
   FaFont
 } from "react-icons/fa"
 import { MdDeleteForever } from "react-icons/md"
-import Link from "next/link"
 import AdvancedColorPicker from "./AdvancedColorPicker"
 import { BiEraser } from "react-icons/bi"
 import { BsDiamond } from "react-icons/bs"
@@ -98,12 +97,12 @@ const Toolbar = ({
     <div>
       <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-[#232329] rounded-xl shadow-lg p-1 z-20">
         <div className="flex items-center space-x-4">
-          <Link href={"/dashboard"} className="">
+          <a href={"/dashboard"} className="">
             <IoHomeSharp
               className=" w-7 h-7 m-0 p-0  hover:text-blue-500 transition   ml-2"
               title="Home"
             />
-          </Link>
+          </a>
 
           <div className="w-px h-8 bg-gray-300"></div>
           <button

@@ -10,22 +10,21 @@ import {
   getBendHandle,
   inverseRotatePoint
 } from "../utils/canvasUtils"
-import { useSocket } from "../hooks/useSocket"
-import { getCursorStyle } from "@/lib/utils"
-import { useAuth } from "@/lib/auth"
-import { useRouter } from "next/navigation"
+import { useSocket } from "../hooks/useSocket.js"
+import { getCursorStyle } from "../lib/utils"
+import { useAuth } from "../lib/auth"
 import axios from "axios"
-import { BACKEND_URL } from "@/app/config"
+import { useNavigate } from "react-router-dom"
 const ExcaliSketch = ({ roomId }) => {
   // App state
   const { token, setToken } = useAuth()
-  const router = useRouter()
+  const navigate = useNavigate();
   const [isTextEditing, setIsTextEditing] = useState(false)
   const [textContent, setTextContent] = useState("")
   const [textPosition, setTextPosition] = useState({ x: 0, y: 0 })
   const [tempRotation, setTempRotation] = useState(0)
   const canvasRef = useRef(null)
-  const { socket, loading, setLoading } = useSocket()
+  const { socket, loading, setLoading } = useSocket(roomId)
   const [shapes, setShapes] = useState([])
   const [currentShape, setCurrentShape] = useState(null)
   const [tool, setTool] = useState("select")
@@ -61,7 +60,7 @@ const ExcaliSketch = ({ roomId }) => {
     async function getShapesFroDB() {
       try {
         setLoading(true)
-        const url = `${BACKEND_URL}/room/${roomId}`
+        const url = `${import.meta.env.BACKEND_URL}/room/${roomId}`
         const res = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` }
         })
@@ -81,11 +80,11 @@ const ExcaliSketch = ({ roomId }) => {
       } catch (e) {
         setLoading(false)
         if (e.status == 404) {
-          router.push("/dashboard")
+          navigate("/dashboard")
           alert("Room does not exists")
         }
         if (e.status == 400) {
-          router.push("/dashboard")
+          navigate("/dashboard")
           alert("Invalid Room Id")
         }
       }

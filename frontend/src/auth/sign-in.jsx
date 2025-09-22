@@ -76,7 +76,7 @@ export default function SignIn() {
               >
                 Email
               </label>
-              <Input
+              <input
                 id="email"
                 type="email"
                 placeholder="you@example.com"
@@ -94,7 +94,7 @@ export default function SignIn() {
               >
                 Password
               </label>
-              <Input
+              <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="••••••••"

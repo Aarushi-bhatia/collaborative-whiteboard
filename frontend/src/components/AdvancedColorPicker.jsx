@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import { ChromePicker } from "react-color"
+import { SketchPicker } from "react-color"
 
 export default function AdvancedColorPicker({ color, setColor }) {
   const [showPicker, setShowPicker] = useState(false)
@@ -43,7 +43,7 @@ export default function AdvancedColorPicker({ color, setColor }) {
       {showPicker && (
         <div className="absolute top-14 left-0 z-10 bg-white p-2 shadow-lg rounded">
           {/* ChromePicker for detailed selection */}
-          <ChromePicker
+          <SketchPicker
             color={color}
             onChange={newColor => setColor(newColor.hex)}
           />
