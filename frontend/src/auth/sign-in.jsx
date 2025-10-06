@@ -58,7 +58,7 @@ export default function SignIn() {
               Welcome Back
             </h1>
             <p className="text-muted-foreground">
-              Sign in to continue to ExcaliSketch
+              Sign in to continue to CollabBoard
             </p>
           </div>
 

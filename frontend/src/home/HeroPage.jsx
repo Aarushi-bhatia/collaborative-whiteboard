@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Pencil, Users, Zap, Shield, ArrowRight, Sparkles, Globe, MessageSquare, Video, Play } from 'lucide-react';
+import SketchWidget from '../ui/sketchWidget';
 
 const WhiteboardLanding = () => {
   const [activeDemo, setActiveDemo] = useState(0);
@@ -21,20 +22,16 @@ const WhiteboardLanding = () => {
     { icon: Video, title: 'Video Calls', desc: 'Face-to-face collaboration integrated' }
   ];
 
-  const testimonials = [
-    { name: 'Sarah Chen', role: 'Design Lead at TechCorp', text: 'This whiteboard transformed how our team collaborates. The real-time features are incredible!', avatar: '#3b82f6' },
-    { name: 'Marcus Johnson', role: 'Product Manager', text: 'Best whiteboard tool we\'ve used. The interface is intuitive and powerful.', avatar: '#10b981' },
-    { name: 'Emma Davis', role: 'Startup Founder', text: 'Game-changer for remote teams. We can\'t imagine working without it now.', avatar: '#f59e0b' }
-  ];
+ 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
       {/* Animated Background */}
-      <div className="fixed inset-0 opacity-20">
+      {/* <div className="fixed inset-0 opacity-20">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
         <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-700" />
         <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000" />
-      </div>
+      </div> */}
 
       {/* Navigation */}
       {/* <nav className="relative z-50 px-6 py-4 flex items-center justify-between backdrop-blur-sm bg-white/5 border-b border-white/10">
@@ -58,28 +55,28 @@ const WhiteboardLanding = () => {
       </nav> */}
 
       {/* Hero Section */}
-      <section className="relative mt-10 z-10 pt-20 pb-32 px-6">
+      <section className="relative mt-20 z-10 pt-20 pb-32 px-6">
         <div className="max-w-7xl mx-auto text-center">
           {/* <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full mb-8 backdrop-blur-sm border border-white/20">
             <Sparkles className="w-4 h-4 text-yellow-400" />
             <span className="text-sm">Trusted by 50,000+ teams worldwide</span>
           </div> */}
           
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-4xl md:text-7xl font-bold mb-6 text-white leading-tight">
             Collaborate in
             <br />Real-Time
           </h1>
           
-          <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            The most intuitive whiteboard for remote teams. Draw, brainstorm, and create together—no matter where you are.
+          <p className="text-xl md:text-xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+            The most intuitive whiteboard for remote teams. Draw, brainstorm, and create together, no matter where you are.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <button className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/50 transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+            <button className="group px-6 py-3  bg-blue-400  rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/10 transition-all transform hover:scale-105 flex items-center justify-center gap-2">
               Get Started
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm rounded-xl text-lg font-semibold hover:bg-white/20 transition-all border border-white/20 flex items-center justify-center gap-2">
+            <button className="px-6 py-3 bg-white/10 backdrop-blur-sm rounded-xl text-lg font-semibold hover:bg-white/20 transition-all border border-white/20 flex items-center justify-center gap-2">
               <Play className="w-5 h-5" />
               Watch Demo
             </button>

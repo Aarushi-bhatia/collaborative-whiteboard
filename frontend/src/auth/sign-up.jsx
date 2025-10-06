@@ -69,7 +69,7 @@ export default function SignUp() {
             Create Account
           </h1>
           <p className="text-muted-foreground">
-            Join ExcaliSketch to start creating
+            Join CollabBoard to start creating
           </p>
         </div>
 
