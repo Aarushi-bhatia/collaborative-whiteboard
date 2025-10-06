@@ -159,13 +159,14 @@ export const initWebSocket = server => {
           return socket.close()
         }
 
-        const userId = checkUser(authData.token)
-        if (!userId) {
+        const authenticatedUserId = checkUser(authData.token)
+        if (!authenticatedUserId) {
           socket.send(JSON.stringify({ error: "Invalid or expired token" }))
           return socket.close()
         }
 
         isAuthenticated = true
+        userId = authenticatedUserId
         clearTimeout(authTimeout)
         socket.send(
           JSON.stringify({ msg: "Authenticated successfully", userId })

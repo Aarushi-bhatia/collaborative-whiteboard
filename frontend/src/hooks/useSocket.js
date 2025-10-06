@@ -9,14 +9,14 @@ export function useSocket(roomId) {
   const { token } = useAuth();
   const connectingRef = useRef(false);
   const wsRef = useRef(null);
-  const isMounted = useRef(true)
+  const isMounted = useRef(true);
 
   useEffect(() => {
-  isMounted.current = true;
-  return () => {
-    isMounted.current = false;
-  };
-}, []);
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!token || !roomId) {
@@ -24,17 +24,30 @@ export function useSocket(roomId) {
       return;
     }
 
-    if (connectingRef.current || (wsRef.current && wsRef.current.readyState === WebSocket.OPEN)) {
-      return;
+    // Clear any existing connection attempts
+    if (wsRef.current) {
+      wsRef.current.onopen = null;
+      wsRef.current.onmessage = null;
+      wsRef.current.onclose = null;
+      wsRef.current.onerror = null;
+      
+      if (wsRef.current.readyState === WebSocket.OPEN || 
+          wsRef.current.readyState === WebSocket.CONNECTING) {
+        wsRef.current.close();
+      }
+      wsRef.current = null;
     }
 
     connectingRef.current = true;
 
-    const ws = new WebSocket(`ws://localhost:5000/canvas/${roomId}`);
+    // Use secure WebSocket if on HTTPS
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${protocol}//${window.location.hostname}:5000`;
+    
+    const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 
     ws.onopen = () => {
-      console.log("WebSocket connected, sending auth message...");
       ws.send(JSON.stringify({ type: "auth", token }));
     };
 
@@ -43,41 +56,45 @@ export function useSocket(roomId) {
         const data = JSON.parse(event.data);
 
         if (data.error) {
-          console.error("WebSocket authentication failed:", data.error);
           ws.close();
-          setLoading(false);
+          if (isMounted.current) setLoading(false);
           return;
         }
+        
         if (data.msg === "Authenticated successfully") {
-          console.log("WebSocket authenticated successfully");
+          // Automatically join the room after authentication
+          ws.send(JSON.stringify({ type: "join_room", roomId }));
+        }
+        
+        if (data.msg && data.msg.includes("Joined room")) {
           if (isMounted.current) {
-          setSocket(ws);
-          setLoading(false);
+            setSocket(ws);
+            setLoading(false);
           }
-          connectingRef.current = false; // Add this line
+          connectingRef.current = false;
         }
       } catch (error) {
-        console.error("Error processing WebSocket message:", error);
+        // Silent error handling
       }
     };
 
-    ws.onerror = (error) => {
-      console.error("WebSocket error:", error);
+    ws.onerror = () => {
       connectingRef.current = false;
-      if (isMounted.current) setLoading(false); 
     };
 
     ws.onclose = () => {
-      console.log("WebSocket closed");
       connectingRef.current = false;
+      
       if (isMounted.current) {
-      setSocket(null);
-      setLoading(false);
+        setSocket(null);
+        setLoading(false);
       }
     };
 
     return () => {
-      ws.close();
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
     };
   }, [token, roomId]);
 

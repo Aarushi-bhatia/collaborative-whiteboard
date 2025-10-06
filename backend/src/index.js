@@ -36,31 +36,8 @@ const logStream = createStream("requestLogs.log", {
 
 //cors
 
-const allowedOrigins = [
-  "https://excali-sketch-frontend.vercel.app",
-  "https://www.excali-sketch1.shop",
-  "https://excali-sketch1.shop",
-  "http://localhost:3000",
-  "http://localhost:5173"
 
-]
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true)
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true)
-      } else {
-        callback(new Error("Not allowed by CORS"))
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-  })
-)
+app.use(cors())
 
 app.use(limiter)
 app.use(morgan("common", { stream: logStream }))
