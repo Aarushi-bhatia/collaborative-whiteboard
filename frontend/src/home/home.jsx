@@ -16,6 +16,7 @@ import {
 // import { ThemeToggle } from "./components/theme-toggle";
 import HeroBackground from "../components/hero-background";
 import '../../src/index.css'
+import WhiteboardLanding from "./HeroPage";
 
 
 function Home() {
@@ -129,9 +130,9 @@ function Home() {
                   }}
                   transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                 />
-                <motion.span className="relative text-xl font-bold text-black dark:text-white bg-white dark:bg-gray-800 px-3 py-1 rounded-lg">
-                  ExcaliSketch
-                </motion.span>
+                <div className="relative text-xl font-bold text-black dark:text-white bg-white dark:bg-gray-800 px-3 py-1 rounded-lg">
+                  CollabBoard
+                </div>
               </motion.div>
             </motion.div>
 
@@ -327,7 +328,7 @@ function Home() {
                     href="/auth/sign-up"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
+                    <button className="w-full m-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white">
                       Sign Up
                     </button>
                   </a>
@@ -337,7 +338,7 @@ function Home() {
           )}
         </AnimatePresence>
       </motion.header>
-
+          <WhiteboardLanding />
       
     </div>
     </>

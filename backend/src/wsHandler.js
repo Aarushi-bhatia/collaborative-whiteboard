@@ -119,10 +119,17 @@ async function sendStateToDB(roomId, message) {
       roomstate.push(JSON.stringify(s))
     })
 
-    const res = await prisma.roomState.upsert({
-      where: { roomId: roomId },
-      create: { shapes: roomstate, roomId: roomId },
-      update: { shapes: roomstate }
+    await prisma.roomState.upsert({
+      where: {
+        roomId: Number(roomId), // Ensure roomId is an Int
+      },
+      create: {
+        shapes: roomstate,
+        roomId: Number(roomId),
+      },
+      update: {
+        shapes: roomstate,
+      },
     })
   } catch (e) {
     console.error(e)

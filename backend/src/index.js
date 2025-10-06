@@ -36,6 +36,14 @@ const logStream = createStream("requestLogs.log", {
 
 //cors
 
+const allowedOrigins = [
+  "https://excali-sketch-frontend.vercel.app",
+  "https://www.excali-sketch1.shop",
+  "https://excali-sketch1.shop",
+  "http://localhost:3000",
+  "http://localhost:5173"
+
+]
 
 app.use(cors())
 
@@ -60,11 +68,11 @@ server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)
 })
 
-cron.schedule("*/14 * * * *", async () => {
-  try {
-    const res = await axios.get(`http://localhost:10000`)
-    console.log(res.data)
-  } catch (e) {
-    console.error(e)
-  }
-})
+// cron.schedule("*/14 * * * *", async () => {
+//   try {
+//     const res = await axios.get(`http://localhost:10000`)
+//     console.log(res.data)
+//   } catch (e) {
+//     console.error(e)
+//   }
+// })
