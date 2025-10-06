@@ -1,1 +1,1 @@
-DrawBuddy
+Collaborative Whiteboard
